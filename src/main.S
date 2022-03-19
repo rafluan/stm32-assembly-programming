@@ -1,9 +1,4 @@
-//P = Q + R + S
-//let Q=2, R=4, S=5
 
-.equ Q, 2
-.equ R, 4
-.equ S, 5
 
             .syntax unified
             .cpu    cortex-m4
@@ -11,15 +6,15 @@
             .thumb
             .section    .text
             .globl  __main
+            .globl num
+            .globl Adder
 
 __main:
-            mov r1,#Q
-            mov r2,#R
-            mov r3,#S
+            ldr r1,=num
+            mov r0,#100
+            str r0,[r1]
 
-            add r0,r1,r2
-            add r0,r0,r3
-            
+            bl  Adder
 stop:
             b       stop
 
