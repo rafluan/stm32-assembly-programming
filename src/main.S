@@ -1,8 +1,9 @@
+//P = Q + R + S
+//let Q=2, R=4, S=5
 
-
-val1    .req    r1
-val2    .req    r2
-sum     .req    r3
+.equ Q, 2
+.equ R, 4
+.equ S, 5
 
             .syntax unified
             .cpu    cortex-m4
@@ -12,28 +13,15 @@ sum     .req    r3
             .globl  __main
 
 __main:
-            ldr r0,=A /* point r0 to mem location A*/
-            mov r1,#5
-            str r1,[r0] /* Store content of r1 into address pointed to by r0*/
+            mov r1,#Q
+            mov r2,#R
+            mov r3,#S
 
-            ldr r0,=D
-            mov r1,#4
-            str r1,[r0]
-
-            ldr r0,=C
-            mov r1,#200
-            str r1,[r0] 
+            add r0,r1,r2
+            add r0,r0,r3
             
 stop:
             b       stop
-            
-            
-            .section .data
-
-A:          .space      4 //Alocate 4 bytes of mem filled with zeros
-D:          .space      4
-C:          .space      4
-
 
             .align
             .end
