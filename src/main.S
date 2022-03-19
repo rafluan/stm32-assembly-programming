@@ -12,12 +12,28 @@ sum     .req    r3
             .globl  __main
 
 __main:
+            ldr r0,=A /* point r0 to mem location A*/
+            mov r1,#5
+            str r1,[r0] /* Store content of r1 into address pointed to by r0*/
 
-            mov val1,#60
-            mov val2,40
+            ldr r0,=D
+            mov r1,#4
+            str r1,[r0]
 
-            add  sum,val1,val2
+            ldr r0,=C
+            mov r1,#200
+            str r1,[r0] 
+            
 stop:
             b       stop
+            
+            
+            .section .data
+
+A:          .space      4 //Alocate 4 bytes of mem filled with zeros
+D:          .space      4
+C:          .space      4
+
+
             .align
             .end
