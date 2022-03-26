@@ -1,13 +1,5 @@
 
 
-count       .req    r0
-max         .req    r1
-pointer     .req    r2
-next        .req    r3
-
-
-mydata:     .word   69,87,86,45,75
-
 
             .syntax unified
             .cpu    cortex-m4
@@ -17,37 +9,9 @@ mydata:     .word   69,87,86,45,75
             .globl  __main
 
 __main:
-            
-
-            mov count,#5
-            mov max,#0
-
-            // load mem address of mydata into r2
-            ldr pointer,= mydata;
-
-again:
-            // load value at mem address found in r2 into r3
-            ldr next,[pointer]
-
-            // compare max with r3 and update conditional flags
-            cmp max,next 
-
-            // branch to ctnu if max is equal or greater than r3 
-            bhs ctnu
-            mov max,next
-
-ctnu:
-            // add 4 bytes to pointer and store results in pointer
-            add pointer,pointer,#4
-
-            // subtract 1 from count, store result into count and
-            // update the conditional flags
-
-            subs count,count,#1
-
-            // branch if results is not equal to zero
-            bne again
-
+            mov  r0,#0x11
+            lsl  r1,r0,#2
+            lsl  r2,r1,#1
 stop:
             b       stop
 
