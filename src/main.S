@@ -1,10 +1,5 @@
 
 
-            .section .data
-    
-SIGN_DATA:  .byte +13,-10,+9,+14,-18,-9,+12,-19,+16
-
-
             .syntax unified
             .cpu    cortex-m4
             .fpu    softvfp
@@ -14,31 +9,21 @@ SIGN_DATA:  .byte +13,-10,+9,+14,-18,-9,+12,-19,+16
 
 __main:
 
-            //load the address of SIGN_DATA into r0
-            ldr r0,=SIGN_DATA
-            mov r3,#9
+            mov     r0,#25
+            mov     r1,#19
 
-begin:
-            //load a signed byte from mem address found in r0 into r2
-            ldrsb   r2,[r0]
-            add     r0,r0,#1
+            //r0 = A +8B
+            add     r0,r0,r1,lsl #3
 
-            //load a signed byte from mem address found in r0 into r1
-            ldrsb   r1,[r0]
-            cmp     r1,r2
+            mov     r1,#99
+            mov     r2,#7
 
-            //branch to next if r1 is greater than or equal to r2
-            bge     next
-            mov     r1,r2
+            //Add 7C to R0 and put result in R0 (R0 = (R1*R2)+R0)
+            mla     r0,r1,r2,r0
+            sub     r0,r0,#27
 
-next:
-
-            add     r0,r0,#1
-            subs    r3,r3,#1
-
-            //branch to begin if result is not equal to zero
-            bne     begin
-
+            //Divide the total by 4
+            mov     r0,r0,asr #2
 
 stop:
             b       stop
