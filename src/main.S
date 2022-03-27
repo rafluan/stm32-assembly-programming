@@ -9,21 +9,19 @@
 
 __main:
 
-            mov     r0,#25
-            mov     r1,#19
+            ldr     r0,=60
+            mov     r1,#10
+            mov     r2,#0
 
-            //r0 = A +8B
-            add     r0,r0,r1,lsl #3
+            cmp     r0,r1
 
-            mov     r1,#99
-            mov     r2,#7
+again:
+            //branch to stop if r0 is lower than r1
+            blo     stop
+            sub     r0,r0,r1
+            add     r2,r2,#1
+            b       again
 
-            //Add 7C to R0 and put result in R0 (R0 = (R1*R2)+R0)
-            mla     r0,r1,r2,r0
-            sub     r0,r0,#27
-
-            //Divide the total by 4
-            mov     r0,r0,asr #2
 
 stop:
             b       stop
