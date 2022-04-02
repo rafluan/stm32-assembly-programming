@@ -9,19 +9,19 @@
 
 __main:
 
-            ldr     r0,=60
-            mov     r1,#10
-            mov     r2,#0
+            mov r6,#4
+            mov r7,#1
 
-            cmp     r0,r1
+loop:
+            cmp r6,#0
 
-again:
-            //branch to stop if r0 is lower than r1
-            blo     stop
-            sub     r0,r0,r1
-            add     r2,r2,#1
-            b       again
+            // if r6 is greater than zero than
+            // execute the next three instructions
 
+            ittt    GT
+            mulgt  r7,r6,r7    // multipy if r6 is greater than 0
+            subgt   r6,r6,#1    // subtract one from r6 if r6 is greater than 0
+            bgt     loop        // branch if r6 is greater than 0
 
 stop:
             b       stop
