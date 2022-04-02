@@ -9,19 +9,14 @@
 
 __main:
 
-            mov r6,#4
-            mov r7,#1
+            ldr r3,=0xDEADBEEF
+            ldr r4,=0xBABEFACE
 
-loop:
-            cmp r6,#0
+            push {r3}
+            push {r4}
 
-            // if r6 is greater than zero than
-            // execute the next three instructions
-
-            ittt    GT
-            mulgt  r7,r6,r7    // multipy if r6 is greater than 0
-            subgt   r6,r6,#1    // subtract one from r6 if r6 is greater than 0
-            bgt     loop        // branch if r6 is greater than 0
+            pop  {r5}
+            pop  {r6}
 
 stop:
             b       stop
