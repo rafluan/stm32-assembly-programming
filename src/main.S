@@ -10,13 +10,15 @@
 .equ GPIO_MODER_OFFSET,     0x00
 .equ GPIOG_MODER,           (GPIOG_BASE + GPIO_MODER_OFFSET)
 
-.equ GPIOG_ODR_OFFSET,      0x14
-.equ GPIOG_ODR,             (GPIOG_BASE + GPIOG_ODR_OFFSET)
+.equ GPIO_BSRR_OFFSET,      0x18
+.equ GPIO_BSRR,             (GPIOG_BASE + GPIO_BSRR_OFFSET)
 
 .equ GPIOG_EN,              (1<<6)
 .equ MODER13_OUT,           (1<<26)
-.equ LED_ON,                (1U<<13)
-.equ LED_OFF,               (1<<0)
+
+.equ BSRR_13_SET,           (1<<13)
+.equ BSRR_13_RESET,         (1<<29)
+
 .equ ONESEC,                5333333
 
             .syntax unified
@@ -44,15 +46,15 @@ __main:
             str r1,[r0]
 
             mov r1,#0
-            ldr r2,=GPIOG_ODR
+            ldr r2,=GPIO_BSRR
 
 Blink:
-            mov r1,#LED_ON
+            mov r1,#BSRR_13_SET
             str r1,[r2]
             ldr r3,=ONESEC
             bl  Delay
 
-            mov r1,#LED_OFF
+            mov r1,#BSRR_13_RESET
             str r1,[r2]
             ldr r3,=ONESEC
             bl  Delay
