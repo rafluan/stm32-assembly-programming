@@ -76,23 +76,8 @@
             .fpu    softvfp
             .thumb
             .section    .text
-            .globl  __main
-
-__main:
-            bl  uart_init
-
-loop:
-            /* Test send a single Character */
-            mov r0,#'Y'
-            bl  uart_outchar
-
-            mov r0,#'E'
-            bl  uart_outchar
-
-            mov r0,#'S'
-            bl  uart_outchar
-
-            b   loop
+            .globl  uart_init
+            .globl  uart_outchar
 
 uart_init:
             /* 1 - Enable clock access to UART GPIO pins */
